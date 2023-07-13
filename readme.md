@@ -111,6 +111,8 @@ Currently the following containers are implemented:
 - GeneralQueue (in development)
 - CircularQueue (in development)
 - Fibonacci Heap (in development)
+- Graph (in development)
+- DirectedGraph (in development)
 
 ## Filter, Map, Reduce
 
