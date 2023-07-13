@@ -53,8 +53,12 @@ func (t *GeneralTree) Children() []Tree {
 	return children
 }
 
-func (t *GeneralTree) RemoveChild(child Tree) {
-	t.children.RemoveElement(child)
+func (t *GeneralTree) RemoveChild(child Tree) error {
+	err := t.children.RemoveElement(child)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (t *GeneralTree) Compare(other Comparable) int8 {

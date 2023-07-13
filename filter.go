@@ -1,6 +1,8 @@
 package gotastructs
 
-import "errors"
+import (
+	"errors"
+)
 
 func FilterList(filter func(element Element) bool, list List) error {
 	if list == nil {
@@ -18,8 +20,8 @@ func FilterList(filter func(element Element) bool, list List) error {
 		index++
 	}
 
-	for _, i := range filterIndexes {
-		err := list.Remove(i)
+	for i := len(filterIndexes) - 1; i >= 0; i-- {
+		err := list.Remove(filterIndexes[i])
 		if err != nil {
 			return err
 		}

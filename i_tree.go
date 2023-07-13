@@ -9,7 +9,7 @@ type Tree interface {
 	Value() Element
 	Children() []Tree
 	AddChild(Tree)
-	RemoveChild(Tree)
+	RemoveChild(Tree) error
 	ChildrenCount() int
 	//IsEmpty() bool
 }
