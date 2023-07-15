@@ -1,7 +1,7 @@
 package list
 
 import (
-	"github.com/schbm/gotastructs"
+	"github.com/schbm/gotastructs/element"
 	"testing"
 	"time"
 )
@@ -17,9 +17,9 @@ func TestArrayList(t *testing.T) {
 	}
 
 	// test append 3 values
-	list.Append(&gotastructs.WrappedInt{1})
-	list.Append(&gotastructs.WrappedInt{2})
-	list.Append(&gotastructs.WrappedInt{3})
+	list.Append(element.NewInt(1))
+	list.Append(element.NewInt(2))
+	list.Append(element.NewInt(3))
 	if list.Size() != 3 {
 		t.Error("list should have 3 elements")
 	}
@@ -32,7 +32,7 @@ func TestArrayList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if !f.Equals(&gotastructs.WrappedInt{1}) {
+	if !f.Equals(element.NewInt(1)) {
 		t.Error("first element should be 1")
 	}
 
@@ -41,7 +41,7 @@ func TestArrayList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if !m.Equals(&gotastructs.WrappedInt{2}) {
+	if !m.Equals(element.NewInt(2)) {
 		t.Error("middle element should be 2")
 	}
 
@@ -51,20 +51,29 @@ func TestArrayList(t *testing.T) {
 		t.Error(err)
 	}
 
-	if !l.Equals(&gotastructs.WrappedInt{3}) {
+	if !l.Equals(element.NewInt(3)) {
 		t.Error("last element should be 3")
 	}
 
 	// test insert first middle last
-	list.Insert(&gotastructs.WrappedInt{0}, 0)
-	list.Insert(&gotastructs.WrappedInt{4}, 1)
-	list.Insert(&gotastructs.WrappedInt{5}, 2)
+	err = list.Insert(element.NewInt(0), 0)
+	if err != nil {
+		t.Error(err)
+	}
+	err = list.Insert(element.NewInt(4), 1)
+	if err != nil {
+		t.Error(err)
+	}
+	err = list.Insert(element.NewInt(5), 2)
+	if err != nil {
+		t.Error(err)
+	}
 
 	v, err := list.Get(1)
 	if err != nil {
 		t.Error(err)
 	}
-	if !v.Equals(&gotastructs.WrappedInt{4}) {
+	if !v.Equals(element.NewInt(4)) {
 		t.Error("middle element should be 4")
 	}
 
@@ -93,7 +102,7 @@ func TestArrayList(t *testing.T) {
 	}
 
 	// test out of bound insert
-	err = list.Insert(&gotastructs.WrappedInt{0}, 4)
+	err = list.Insert(element.NewInt(0), 4)
 	if err == nil {
 		t.Error("should have gotten an error")
 	}
@@ -104,63 +113,63 @@ func TestArrayListTime(t *testing.T) {
 	currT := time.Now()
 	var list List = NewArrayList()
 	for i := 0; i < 10000000; i++ {
-		list.Append(&gotastructs.WrappedInt{i})
+		list.Append(element.NewInt(i))
 	}
 	t.Log("appended 10000000 elements in: ", time.Since(currT))
 
 	//get the last element
 	currT = time.Now()
-	list.Get(list.Size() - 1)
+	_, _ = list.Get(list.Size() - 1)
 	t.Log("ArrayList Get the last element: ", time.Since(currT))
 
 	//get middle
 	currT = time.Now()
-	list.Get(list.Size() / 2)
+	_, _ = list.Get(list.Size() / 2)
 	t.Log("ArrayList Get the middle element: ", time.Since(currT))
 
 	//insert first
 	currT = time.Now()
-	list.Insert(&gotastructs.WrappedInt{1}, 0)
+	_ = list.Insert(element.NewInt(1), 0)
 	t.Log("ArrayList Insert first element: ", time.Since(currT))
 
 	//insert last
 	currT = time.Now()
-	list.Insert(&gotastructs.WrappedInt{1}, list.Size()-1)
+	_ = list.Insert(element.NewInt(1), list.Size()-1)
 	t.Log("ArrayList Insert last element: ", time.Since(currT))
 
 	//insert middle
 	currT = time.Now()
-	list.Insert(&gotastructs.WrappedInt{1}, list.Size()/2)
+	_ = list.Insert(element.NewInt(1), list.Size()/2)
 	t.Log("ArrayList Insert middle element: ", time.Since(currT))
 
 	//remove first
 	currT = time.Now()
-	list.Remove(0)
+	_ = list.Remove(0)
 	t.Log("ArrayList Remove first element: ", time.Since(currT))
 
 	//remove last
 	currT = time.Now()
-	list.Remove(list.Size() - 1)
+	_ = list.Remove(list.Size() - 1)
 	t.Log("ArrayList Remove last element: ", time.Since(currT))
 
 	//remove middle
 	currT = time.Now()
-	list.Remove(list.Size() / 2)
+	_ = list.Remove(list.Size() / 2)
 	t.Log("ArrayList Remove middle element: ", time.Since(currT))
 
 	//remove high int value
 	currT = time.Now()
-	list.Remove(list.Size() - 100)
+	_ = list.Remove(list.Size() - 100)
 	t.Log("ArrayList Remove high int value element: ", time.Since(currT))
 
 	//remove high int value
 	currT = time.Now()
-	list.Remove(list.Size() - 200)
+	_ = list.Remove(list.Size() - 200)
 	t.Log("ArrayList Remove high int value element: ", time.Since(currT))
 
 	//remove high int value
 	currT = time.Now()
-	list.Remove(list.Size() - 300)
+	_ = list.Remove(list.Size() - 300)
 	t.Log("ArrayList Remove high int value element: ", time.Since(currT))
 
 	//test iterator

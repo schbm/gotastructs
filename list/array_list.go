@@ -6,29 +6,33 @@ import (
 )
 
 const (
-	ARRAY_LIST_INITIAL_SIZE    = 100
-	ARRAY_LIST_MULTIPLIER      = 2
-	ARRAY_LIST_GROTH_THRESHOLD = 5
+	arrLInitSize        = 100 // initial size of the array
+	arrLMultiplier      = 2   // multiplier for the array when it needs to grow
+	arrLGrowthThreshold = 5   // threshold of free elements for when the array needs to grow
 )
 
+/*
+ArrayList is a list implementation that uses an array as its underlying data structure.
+*/
 type ArrayList struct {
 	elements []gotastructs.Element
 }
 
+// NewArrayList creates a new ArrayList.
 func NewArrayList() *ArrayList {
 	return &ArrayList{
-		elements: make([]gotastructs.Element, 0, ARRAY_LIST_INITIAL_SIZE),
+		elements: make([]gotastructs.Element, 0, arrLInitSize),
 	}
 }
 
 func (l *ArrayList) grow() {
-	newElements := make([]gotastructs.Element, len(l.elements), cap(l.elements)*ARRAY_LIST_MULTIPLIER)
+	newElements := make([]gotastructs.Element, len(l.elements), cap(l.elements)*arrLMultiplier)
 	copy(newElements, l.elements)
 	l.elements = newElements
 }
 
 func (l *ArrayList) Append(element gotastructs.Element) {
-	if cap(l.elements)-len(l.elements) < ARRAY_LIST_GROTH_THRESHOLD {
+	if cap(l.elements)-len(l.elements) < arrLGrowthThreshold {
 		l.grow()
 	}
 
@@ -40,7 +44,7 @@ func (l *ArrayList) Insert(element gotastructs.Element, index int) ListError {
 		return errors.New("index out of bounds")
 	}
 
-	if cap(l.elements)-len(l.elements) < ARRAY_LIST_GROTH_THRESHOLD {
+	if cap(l.elements)-len(l.elements) < arrLGrowthThreshold {
 		l.grow()
 	}
 
@@ -102,4 +106,33 @@ func (l *ArrayList) IsEmpty() bool {
 
 func (l *ArrayList) Size() int {
 	return len(l.elements)
+}
+
+type ArrayListIterator struct {
+	list  []gotastructs.Element
+	index int
+}
+
+func (l *ArrayListIterator) Next() gotastructs.Element {
+	if l.index >= len(l.list) {
+		return nil
+	}
+	el := l.list[l.index]
+	l.index++
+	return el
+}
+
+func (l *ArrayListIterator) HasNext() bool {
+	return l.index < len(l.list)
+}
+
+func (l *ArrayList) Iterator() gotastructs.Iterator {
+	return &ArrayListIterator{
+		list:  l.elements,
+		index: 0,
+	}
+}
+
+func (l *ArrayList) ToSlice() []gotastructs.Element {
+	return l.elements
 }

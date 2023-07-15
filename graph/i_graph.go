@@ -1,11 +1,4 @@
-package gotastructs
-
-type Node interface {
-	Id() string
-	Value() Element
-	Neighbors() []Node
-	NeighborCount() int
-}
+package graph
 
 // Graph represents a general graph interface.
 type Graph interface {

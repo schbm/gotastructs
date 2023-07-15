@@ -1,14 +1,17 @@
-package gotastructs
+package tree
 
-import "github.com/schbm/gotastructs/list"
+import (
+	"github.com/schbm/gotastructs"
+	"github.com/schbm/gotastructs/list"
+)
 
 type GeneralTree struct {
 	children list.List
 	parent   *GeneralTree
-	value    Element
+	value    gotastructs.Element
 }
 
-func NewGeneralTree(list list.List, parent *GeneralTree, value Element) *GeneralTree {
+func NewGeneralTree(list list.List, parent *GeneralTree, value gotastructs.Element) *GeneralTree {
 	return &GeneralTree{list, parent, value}
 }
 
@@ -16,7 +19,7 @@ func (t *GeneralTree) ChildrenCount() int {
 	return t.children.Size()
 }
 
-func (t *GeneralTree) Value() Element {
+func (t *GeneralTree) Value() gotastructs.Element {
 	return t.value
 }
 
@@ -79,9 +82,9 @@ func (t *GeneralTree) Compare(other Comparable) int8 {
 	return 0
 }
 
-func (t *GeneralTree) ToSlice() []Element {
+func (t *GeneralTree) ToSlice() []gotastructs.Element {
 	childs := t.Children()
-	result := make([]Element, 0, t.ChildrenCount()+1)
+	result := make([]gotastructs.Element, 0, t.ChildrenCount()+1)
 	result = append(result, t.Value())
 	for _, el := range childs {
 		result = append(result, el.ToSlice()...)

@@ -1,4 +1,4 @@
-package gotastructs
+package tree
 
 type BTree interface {
 	Tree

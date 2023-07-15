@@ -1,7 +1,8 @@
-package gotastructs
+package stack
 
 import (
 	"errors"
+	"github.com/schbm/gotastructs"
 	list2 "github.com/schbm/gotastructs/list"
 )
 
@@ -14,11 +15,11 @@ func NewGeneralStack(list list2.List) *GeneralStack {
 	return &GeneralStack{list: list}
 }
 
-func (s *GeneralStack) Push(el Element) {
+func (s *GeneralStack) Push(el gotastructs.Element) {
 	s.list.Append(el)
 }
 
-func (s *GeneralStack) Pop() (Element, error) {
+func (s *GeneralStack) Pop() (gotastructs.Element, error) {
 	if s.list.IsEmpty() {
 		return nil, errors.New("stack is empty")
 	}
@@ -37,7 +38,7 @@ func (s *GeneralStack) Size() int {
 	return s.list.Size()
 }
 
-func (s *GeneralStack) Peek() (Element, error) {
+func (s *GeneralStack) Peek() (gotastructs.Element, error) {
 	if s.list.IsEmpty() {
 		return nil, errors.New("stack is empty")
 	}

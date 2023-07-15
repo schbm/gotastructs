@@ -1,13 +1,15 @@
-package gotastructs
+package element
 
-import "strconv"
+import (
+	"strconv"
+)
 
 type WrappedInt struct {
 	value int
 }
 
 // implements IComparator
-func (w *WrappedInt) Equals(other Comparable) bool {
+func (w *WrappedInt) Equals(other any) bool {
 	v, ok := other.(*WrappedInt)
 	if !ok {
 		return false
@@ -19,14 +21,14 @@ func (w *WrappedInt) String() string {
 	return strconv.Itoa(w.value)
 }
 
-func (w *WrappedInt) Compare(other Comparable) int8 {
+func (w *WrappedInt) Compare(other any) int8 {
 	if w.Equals(other) {
 		return 0
 	}
 
 	v, ok := other.(*WrappedInt)
 	if !ok {
-		return -1
+		return 0
 	}
 
 	if w.value > v.value {

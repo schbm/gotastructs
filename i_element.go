@@ -8,15 +8,15 @@ type Equaler interface {
 	// implemented in a way that makes sense for the type.
 	// As this probably will be called a lot of times, it should be
 	// implemented efficiently.
-	Equals(Equaler) bool
+	Equals(any) bool
 }
 
 // Comparer describes a type that can be compared to another type of the
 // same specific type.
 type Comparer interface {
-	// Compare compares this Comparable to another Comparable.
+	// Compare compares this Comparable to another type.
 	// Returns 0 if they are equal, a positive number if this Comparable is
-	// greater than the other Comparable, and a negative number if this
+	// greater than the other, and a negative number if this
 	// Comparable is less than the other Comparable.
 	// For custom types that implement Comparable, this method should be
 	// implemented in a way that makes sense for the type.
@@ -24,7 +24,7 @@ type Comparer interface {
 	// implemented efficiently.
 	// If two comparables are not of the same specific type, the return value
 	// is undefined. It is recommended to return 0 in this case.
-	Compare(Comparer) int8
+	Compare(any) int8
 }
 
 // Element describes a type that can be stored in a data structure.
