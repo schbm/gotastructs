@@ -1,4 +1,6 @@
-package gotastructs
+package list
+
+import "github.com/schbm/gotastructs"
 
 type LinkedListIterator struct {
 	current *LinkedListElement
@@ -8,7 +10,7 @@ func (i *LinkedListIterator) HasNext() bool {
 	return i.current != nil
 }
 
-func (i *LinkedListIterator) Next() Element {
+func (i *LinkedListIterator) Next() gotastructs.Element {
 
 	if !i.HasNext() {
 		return nil
@@ -19,6 +21,6 @@ func (i *LinkedListIterator) Next() Element {
 	return value
 }
 
-func (l *LinkedList) Iterator() Iterator {
+func (l *LinkedList) Iterator() gotastructs.Iterator {
 	return &LinkedListIterator{l.Head()}
 }

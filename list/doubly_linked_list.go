@@ -1,14 +1,17 @@
-package gotastructs
+package list
 
-import "errors"
+import (
+	"errors"
+	"github.com/schbm/gotastructs"
+)
 
 type DoublyLinkedListElement struct {
-	value    Element
+	value    gotastructs.Element
 	next     *DoublyLinkedListElement
 	previous *DoublyLinkedListElement
 }
 
-func (e *DoublyLinkedListElement) Value() Element {
+func (e *DoublyLinkedListElement) Value() gotastructs.Element {
 	return e.value
 }
 
@@ -30,7 +33,7 @@ func NewDoublyLinkedList() *DoublyLinkedList {
 	return &DoublyLinkedList{nil, nil, 0}
 }
 
-func (l *DoublyLinkedList) Append(value Element) {
+func (l *DoublyLinkedList) Append(value gotastructs.Element) {
 	if l.IsEmpty() {
 		l.head = &DoublyLinkedListElement{value, nil, nil}
 		l.tail = l.Head()
@@ -44,7 +47,7 @@ func (l *DoublyLinkedList) Append(value Element) {
 	return
 }
 
-func (l *DoublyLinkedList) Insert(value Element, index int) ListError {
+func (l *DoublyLinkedList) Insert(value gotastructs.Element, index int) ListError {
 	if index < 0 || index >= l.Size() {
 		return errors.New("index out of bounds")
 	}
@@ -100,7 +103,7 @@ func (l *DoublyLinkedList) Remove(index int) ListError {
 	return nil
 }
 
-func (l *DoublyLinkedList) RemoveElement(value Element) ListError {
+func (l *DoublyLinkedList) RemoveElement(value gotastructs.Element) ListError {
 	if l.IsEmpty() {
 		return errors.New("list is empty")
 	}
@@ -136,7 +139,7 @@ func (l *DoublyLinkedList) RemoveElement(value Element) ListError {
 	return nil
 }
 
-func (l *DoublyLinkedList) IndexOf(value Element) (int, ListError) {
+func (l *DoublyLinkedList) IndexOf(value gotastructs.Element) (int, ListError) {
 	if l.IsEmpty() {
 		return -1, errors.New("list is empty")
 	}
@@ -151,7 +154,7 @@ func (l *DoublyLinkedList) IndexOf(value Element) (int, ListError) {
 	return -1, errors.New("element not found")
 }
 
-func (l *DoublyLinkedList) Contains(value Element) bool {
+func (l *DoublyLinkedList) Contains(value gotastructs.Element) bool {
 	if l.IsEmpty() {
 		return false
 	}
@@ -166,7 +169,7 @@ func (l *DoublyLinkedList) Contains(value Element) bool {
 	return false
 }
 
-func (l *DoublyLinkedList) Get(index int) (Element, ListError) {
+func (l *DoublyLinkedList) Get(index int) (gotastructs.Element, ListError) {
 	if index < 0 || index >= l.Size() {
 		return nil, errors.New("index out of bounds")
 	}

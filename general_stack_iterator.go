@@ -1,7 +1,9 @@
 package gotastructs
 
+import list2 "github.com/schbm/gotastructs/list"
+
 type GeneralStackIterator struct {
-	list  List
+	list  list2.List
 	index int
 }
 

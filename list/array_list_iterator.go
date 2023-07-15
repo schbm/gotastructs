@@ -1,11 +1,13 @@
-package gotastructs
+package list
+
+import "github.com/schbm/gotastructs"
 
 type ArrayListIterator struct {
-	list  []Element
+	list  []gotastructs.Element
 	index int
 }
 
-func (l *ArrayListIterator) Next() Element {
+func (l *ArrayListIterator) Next() gotastructs.Element {
 	if l.index >= len(l.list) {
 		return nil
 	}
@@ -18,7 +20,7 @@ func (l *ArrayListIterator) HasNext() bool {
 	return l.index < len(l.list)
 }
 
-func (l *ArrayList) Iterator() Iterator {
+func (l *ArrayList) Iterator() gotastructs.Iterator {
 	return &ArrayListIterator{
 		list:  l.elements,
 		index: 0,

@@ -1,4 +1,6 @@
-package gotastructs
+package list
+
+import "github.com/schbm/gotastructs"
 
 type DoublyLinkedListIterator struct {
 	current *DoublyLinkedListElement
@@ -8,7 +10,7 @@ func (i *DoublyLinkedListIterator) HasNext() bool {
 	return i.current != nil
 }
 
-func (i *DoublyLinkedListIterator) Next() Element {
+func (i *DoublyLinkedListIterator) Next() gotastructs.Element {
 	if !i.HasNext() {
 		return nil
 	}
@@ -17,6 +19,6 @@ func (i *DoublyLinkedListIterator) Next() Element {
 	return value
 }
 
-func (l *DoublyLinkedList) Iterator() Iterator {
+func (l *DoublyLinkedList) Iterator() gotastructs.Iterator {
 	return &DoublyLinkedListIterator{l.Head()}
 }

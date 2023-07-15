@@ -1,6 +1,7 @@
-package gotastructs
+package list
 
 import (
+	"github.com/schbm/gotastructs"
 	"testing"
 	"time"
 )
@@ -16,9 +17,9 @@ func TestLinkedList(t *testing.T) {
 	}
 
 	// test append 3 values
-	list.Append(&WrappedInt{1})
-	list.Append(&WrappedInt{2})
-	list.Append(&WrappedInt{3})
+	list.Append(&gotastructs.WrappedInt{1})
+	list.Append(&gotastructs.WrappedInt{2})
+	list.Append(&gotastructs.WrappedInt{3})
 	if list.Size() != 3 {
 		t.Error("list should have 3 elements")
 	}
@@ -31,7 +32,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&WrappedInt{1}) != true {
+	if f.Equals(&gotastructs.WrappedInt{1}) != true {
 		t.Error("first element should be 1")
 	}
 
@@ -40,7 +41,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&WrappedInt{3}) != true {
+	if l.Equals(&gotastructs.WrappedInt{3}) != true {
 		t.Error("last element should be 3")
 	}
 
@@ -51,7 +52,7 @@ func TestLinkedList(t *testing.T) {
 	}
 
 	//inser first
-	err = list.Insert(&WrappedInt{0}, 0)
+	err = list.Insert(&gotastructs.WrappedInt{0}, 0)
 	if err != nil {
 		t.Error(err)
 	}
@@ -62,11 +63,11 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&WrappedInt{0}) != true {
+	if f.Equals(&gotastructs.WrappedInt{0}) != true {
 		t.Error("first element should be 0")
 	}
 	// insert last
-	err = list.Insert(&WrappedInt{4}, list.Size()-1)
+	err = list.Insert(&gotastructs.WrappedInt{4}, list.Size()-1)
 	if err != nil {
 		t.Error(err)
 	}
@@ -77,11 +78,11 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&WrappedInt{4}) != true {
+	if l.Equals(&gotastructs.WrappedInt{4}) != true {
 		t.Error("last element should be 4")
 	}
 	// insert out of bounds
-	err = list.Insert(&WrappedInt{5}, list.Size())
+	err = list.Insert(&gotastructs.WrappedInt{5}, list.Size())
 	if err == nil {
 		t.Error("should have returned error")
 	}
@@ -98,7 +99,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&WrappedInt{1}) != true {
+	if f.Equals(&gotastructs.WrappedInt{1}) != true {
 		t.Error("first element should be 1")
 	}
 
@@ -114,7 +115,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&WrappedInt{3}) != true {
+	if l.Equals(&gotastructs.WrappedInt{3}) != true {
 		t.Error("last element should be 3")
 	}
 
@@ -125,7 +126,7 @@ func TestLinkedList(t *testing.T) {
 	}
 
 	// test remove element
-	err = list.RemoveElement(&WrappedInt{2})
+	err = list.RemoveElement(&gotastructs.WrappedInt{2})
 	if err != nil {
 		t.Error(err)
 	}
@@ -136,33 +137,33 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&WrappedInt{1}) != true {
+	if f.Equals(&gotastructs.WrappedInt{1}) != true {
 		t.Error("first element should be 1")
 	}
 	l, err = list.Get(list.Size() - 1)
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&WrappedInt{3}) != true {
+	if l.Equals(&gotastructs.WrappedInt{3}) != true {
 		t.Error("last element should be 3")
 	}
 
 	// test remove element not in list
-	err = list.RemoveElement(&WrappedInt{2})
+	err = list.RemoveElement(&gotastructs.WrappedInt{2})
 	if err == nil {
 		t.Error("should have returned error")
 	}
 
 	// test remove element from empty list
 	list = NewLinkedList()
-	err = list.RemoveElement(&WrappedInt{2})
+	err = list.RemoveElement(&gotastructs.WrappedInt{2})
 	if err == nil {
 		t.Error("should have returned error")
 	}
 
 	// insert with index on empty list
 	list = NewLinkedList()
-	err = list.Insert(&WrappedInt{2}, 0)
+	err = list.Insert(&gotastructs.WrappedInt{2}, 0)
 	if err == nil {
 		t.Error("should have returned error")
 	}
@@ -174,7 +175,7 @@ func TestLinkedListTime(t *testing.T) {
 	currT := time.Now()
 	var list List = NewLinkedList()
 	for i := 0; i < 10000000; i++ {
-		list.Append(&WrappedInt{i})
+		list.Append(&gotastructs.WrappedInt{i})
 	}
 	t.Log("appended 10000000 elements in: ", time.Since(currT))
 
@@ -190,17 +191,17 @@ func TestLinkedListTime(t *testing.T) {
 
 	//insert first
 	currT = time.Now()
-	list.Insert(&WrappedInt{1}, 0)
+	list.Insert(&gotastructs.WrappedInt{1}, 0)
 	t.Log("LinkedList Insert first element: ", time.Since(currT))
 
 	//insert last
 	currT = time.Now()
-	list.Insert(&WrappedInt{1}, list.Size()-1)
+	list.Insert(&gotastructs.WrappedInt{1}, list.Size()-1)
 	t.Log("LinkedList Insert last element: ", time.Since(currT))
 
 	//insert middle
 	currT = time.Now()
-	list.Insert(&WrappedInt{1}, list.Size()/2)
+	list.Insert(&gotastructs.WrappedInt{1}, list.Size()/2)
 	t.Log("LinkedList Insert middle element: ", time.Since(currT))
 
 	//remove first

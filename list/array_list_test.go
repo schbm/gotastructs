@@ -1,6 +1,7 @@
-package gotastructs
+package list
 
 import (
+	"github.com/schbm/gotastructs"
 	"testing"
 	"time"
 )
@@ -16,9 +17,9 @@ func TestArrayList(t *testing.T) {
 	}
 
 	// test append 3 values
-	list.Append(&WrappedInt{1})
-	list.Append(&WrappedInt{2})
-	list.Append(&WrappedInt{3})
+	list.Append(&gotastructs.WrappedInt{1})
+	list.Append(&gotastructs.WrappedInt{2})
+	list.Append(&gotastructs.WrappedInt{3})
 	if list.Size() != 3 {
 		t.Error("list should have 3 elements")
 	}
@@ -31,7 +32,7 @@ func TestArrayList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if !f.Equals(&WrappedInt{1}) {
+	if !f.Equals(&gotastructs.WrappedInt{1}) {
 		t.Error("first element should be 1")
 	}
 
@@ -40,7 +41,7 @@ func TestArrayList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if !m.Equals(&WrappedInt{2}) {
+	if !m.Equals(&gotastructs.WrappedInt{2}) {
 		t.Error("middle element should be 2")
 	}
 
@@ -50,20 +51,20 @@ func TestArrayList(t *testing.T) {
 		t.Error(err)
 	}
 
-	if !l.Equals(&WrappedInt{3}) {
+	if !l.Equals(&gotastructs.WrappedInt{3}) {
 		t.Error("last element should be 3")
 	}
 
 	// test insert first middle last
-	list.Insert(&WrappedInt{0}, 0)
-	list.Insert(&WrappedInt{4}, 1)
-	list.Insert(&WrappedInt{5}, 2)
+	list.Insert(&gotastructs.WrappedInt{0}, 0)
+	list.Insert(&gotastructs.WrappedInt{4}, 1)
+	list.Insert(&gotastructs.WrappedInt{5}, 2)
 
 	v, err := list.Get(1)
 	if err != nil {
 		t.Error(err)
 	}
-	if !v.Equals(&WrappedInt{4}) {
+	if !v.Equals(&gotastructs.WrappedInt{4}) {
 		t.Error("middle element should be 4")
 	}
 
@@ -92,7 +93,7 @@ func TestArrayList(t *testing.T) {
 	}
 
 	// test out of bound insert
-	err = list.Insert(&WrappedInt{0}, 4)
+	err = list.Insert(&gotastructs.WrappedInt{0}, 4)
 	if err == nil {
 		t.Error("should have gotten an error")
 	}
@@ -103,7 +104,7 @@ func TestArrayListTime(t *testing.T) {
 	currT := time.Now()
 	var list List = NewArrayList()
 	for i := 0; i < 10000000; i++ {
-		list.Append(&WrappedInt{i})
+		list.Append(&gotastructs.WrappedInt{i})
 	}
 	t.Log("appended 10000000 elements in: ", time.Since(currT))
 
@@ -119,17 +120,17 @@ func TestArrayListTime(t *testing.T) {
 
 	//insert first
 	currT = time.Now()
-	list.Insert(&WrappedInt{1}, 0)
+	list.Insert(&gotastructs.WrappedInt{1}, 0)
 	t.Log("ArrayList Insert first element: ", time.Since(currT))
 
 	//insert last
 	currT = time.Now()
-	list.Insert(&WrappedInt{1}, list.Size()-1)
+	list.Insert(&gotastructs.WrappedInt{1}, list.Size()-1)
 	t.Log("ArrayList Insert last element: ", time.Since(currT))
 
 	//insert middle
 	currT = time.Now()
-	list.Insert(&WrappedInt{1}, list.Size()/2)
+	list.Insert(&gotastructs.WrappedInt{1}, list.Size()/2)
 	t.Log("ArrayList Insert middle element: ", time.Since(currT))
 
 	//remove first

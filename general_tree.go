@@ -1,12 +1,14 @@
 package gotastructs
 
+import "github.com/schbm/gotastructs/list"
+
 type GeneralTree struct {
-	children List
+	children list.List
 	parent   *GeneralTree
 	value    Element
 }
 
-func NewGeneralTree(list List, parent *GeneralTree, value Element) *GeneralTree {
+func NewGeneralTree(list list.List, parent *GeneralTree, value Element) *GeneralTree {
 	return &GeneralTree{list, parent, value}
 }
 

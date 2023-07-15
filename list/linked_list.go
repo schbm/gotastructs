@@ -1,13 +1,16 @@
-package gotastructs
+package list
 
-import "errors"
+import (
+	"errors"
+	"github.com/schbm/gotastructs"
+)
 
 type LinkedListElement struct {
-	value Element            //concrete value interface
-	next  *LinkedListElement //pointer to next element
+	value gotastructs.Element //concrete value interface
+	next  *LinkedListElement  //pointer to next element
 }
 
-func (e *LinkedListElement) Value() Element {
+func (e *LinkedListElement) Value() gotastructs.Element {
 	return e.value //return concrete value
 }
 
@@ -28,7 +31,7 @@ func NewLinkedList() *LinkedList {
 }
 
 // Append adds a new element to the end of the list
-func (l *LinkedList) Append(value Element) {
+func (l *LinkedList) Append(value gotastructs.Element) {
 	if l.IsEmpty() {
 		l.head = &LinkedListElement{value, nil}
 		l.tail = l.Head()
@@ -42,7 +45,7 @@ func (l *LinkedList) Append(value Element) {
 	return
 }
 
-func (l *LinkedList) Insert(value Element, index int) ListError {
+func (l *LinkedList) Insert(value gotastructs.Element, index int) ListError {
 	if index < 0 || index >= l.Size() {
 		return errors.New("index out of bounds")
 	}
@@ -96,7 +99,7 @@ func (l *LinkedList) Remove(index int) ListError {
 	return nil
 }
 
-func (l *LinkedList) RemoveElement(value Element) ListError {
+func (l *LinkedList) RemoveElement(value gotastructs.Element) ListError {
 	if l.IsEmpty() {
 		return errors.New("list is empty")
 	}
@@ -157,7 +160,7 @@ func (l *LinkedList) Clear() {
 	l.size = 0
 }
 
-func (l *LinkedList) Contains(value Element) bool {
+func (l *LinkedList) Contains(value gotastructs.Element) bool {
 	if l.IsEmpty() {
 		return false
 	}
@@ -173,7 +176,7 @@ func (l *LinkedList) Contains(value Element) bool {
 	return false
 }
 
-func (l *LinkedList) IndexOf(value Element) (int, ListError) {
+func (l *LinkedList) IndexOf(value gotastructs.Element) (int, ListError) {
 	if l.IsEmpty() {
 		return -1, errors.New("list is empty")
 	}
@@ -188,7 +191,7 @@ func (l *LinkedList) IndexOf(value Element) (int, ListError) {
 	return -1, errors.New("element not found")
 }
 
-func (l *LinkedList) Get(index int) (Element, ListError) {
+func (l *LinkedList) Get(index int) (gotastructs.Element, ListError) {
 	if index < 0 || index >= l.Size() {
 		return nil, errors.New("index out of bounds")
 	}

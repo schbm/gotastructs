@@ -1,13 +1,16 @@
 package gotastructs
 
-import "errors"
+import (
+	"errors"
+	list2 "github.com/schbm/gotastructs/list"
+)
 
 // pushes and pulles last item from list
 type GeneralStack struct {
-	list List
+	list list2.List
 }
 
-func NewGeneralStack(list List) *GeneralStack {
+func NewGeneralStack(list list2.List) *GeneralStack {
 	return &GeneralStack{list: list}
 }
 
