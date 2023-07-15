@@ -1,9 +1,12 @@
 package gotastructs
 
-import "testing"
+import (
+	list2 "github.com/schbm/gotastructs/list"
+	"testing"
+)
 
 func TestFilterList(t *testing.T) {
-	list := NewArrayList()
+	list := list2.NewArrayList()
 	list.Append(NewInt(1))
 	list.Append(NewInt(2))
 	list.Append(NewInt(3))

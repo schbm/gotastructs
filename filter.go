@@ -2,9 +2,10 @@ package gotastructs
 
 import (
 	"errors"
+	"github.com/schbm/gotastructs/list"
 )
 
-func FilterList(filter func(element Element) bool, list List) error {
+func FilterList(filter func(element Element) bool, list list.List) error {
 	if list == nil {
 		return errors.New("error list is nil")
 	}
