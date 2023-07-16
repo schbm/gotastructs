@@ -1,6 +1,6 @@
 # gotastructs
 
-Godastructs is a collection of Go datastructures.
+Gotastructs is a collection of Go datastructures.
 They may be useful as reference or starting point.
 This is a personal exercise and reference packet.
 The stuctures are not thoroughly tested and if you
