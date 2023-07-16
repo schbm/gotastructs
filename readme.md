@@ -83,50 +83,40 @@ As an example we will take a look at a simple int wrapper which implements the `
 
 package element
 
-type WrappedInt struct {
-    value int
+import "strings"
+
+type WrappedString string
+
+func (w *WrappedString) Equals(other any) bool {
+	v, ok := other.(*WrappedString)
+	if !ok {
+		return false
+	}
+	return *w == *v
 }
 
-func (w *WrappedInt) Value() int {
-    return w.value
+func (w *WrappedString) String() string {
+	return string(*w)
 }
 
-// implements IComparator
-func (w *WrappedInt) Equals(other any) bool {
-    v, ok := other.(*WrappedInt)
-    
-    if !ok {
-        return false
-    }
-	
-    return w.value == v.value
+func (w *WrappedString) Compare(other any) int8 {
+	if w.Equals(other) {
+		return 0
+	}
+
+	v, ok := other.(*WrappedString)
+	if !ok {
+		return 0
+	}
+
+	return int8(strings.Compare(string(*w), string(*v)))
 }
 
-func (w *WrappedInt) String() string {
-    return strconv.Itoa(w.value)
+func NewString(value string) *WrappedString {
+	v := WrappedString(value)
+	return &v
 }
 
-func (w *WrappedInt) Compare(other any) int8 {
-if w.Equals(other) {
-return 0
-}
-
-v, ok := other.(*WrappedInt)
-if !ok {
-return 0
-}
-
-if w.value > v.value {
-return 1
-}
-return -1
-}
-
-func NewInt(value int) *WrappedInt {
-return &WrappedInt{
-value: value,
-}
-}
 
 
 ```
@@ -144,33 +134,17 @@ Currently the following functions are implemented:
 
 ```go
 
-package list
-
-func FilterList(filter func(element general.Element) bool, list List) error {
-	if list == nil {
-		return errors.New("error list is nil")
-	}
-	iterator := list.Iterator()
-	filterIndexes := make([]int, 0, list.Size())
-
-	index := 0
-	for iterator.HasNext() {
-		v := iterator.Next()
-		if filter(v) {
-			filterIndexes = append(filterIndexes, index)
-		}
-		index++
-	}
-
-	for i := len(filterIndexes) - 1; i >= 0; i-- {
-		err := list.Remove(filterIndexes[i])
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
+FilterList(func(el general.Element) bool {
+    v, ok := el.(*element.WrappedInt)
+    if !ok {
+        return true
+    }
+    if v.Value()%2 == 0 {
+        return true
+    }
+    
+    return false
+}, list)
 
 ```
 
