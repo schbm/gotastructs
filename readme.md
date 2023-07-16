@@ -15,6 +15,7 @@ Currently, the following containers are implemented:
 - DoublyLinkedList
 - LinkedList
 - ArrayList
+- Hashset
 - GeneralStack
 - GeneralTree
 - BinaryTree (in development
