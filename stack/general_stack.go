@@ -2,24 +2,24 @@ package stack
 
 import (
 	"errors"
-	"github.com/schbm/gotastructs"
-	list2 "github.com/schbm/gotastructs/list"
+	"github.com/schbm/gotastructs/general"
+	"github.com/schbm/gotastructs/list"
 )
 
 // pushes and pulles last item from list
 type GeneralStack struct {
-	list list2.List
+	list list.List
 }
 
-func NewGeneralStack(list list2.List) *GeneralStack {
+func NewStack(list list.List) *GeneralStack {
 	return &GeneralStack{list: list}
 }
 
-func (s *GeneralStack) Push(el gotastructs.Element) {
+func (s *GeneralStack) Push(el general.Element) {
 	s.list.Append(el)
 }
 
-func (s *GeneralStack) Pop() (gotastructs.Element, error) {
+func (s *GeneralStack) Pop() (general.Element, error) {
 	if s.list.IsEmpty() {
 		return nil, errors.New("stack is empty")
 	}
@@ -38,7 +38,7 @@ func (s *GeneralStack) Size() int {
 	return s.list.Size()
 }
 
-func (s *GeneralStack) Peek() (gotastructs.Element, error) {
+func (s *GeneralStack) Peek() (general.Element, error) {
 	if s.list.IsEmpty() {
 		return nil, errors.New("stack is empty")
 	}
@@ -51,4 +51,30 @@ func (s *GeneralStack) Peek() (gotastructs.Element, error) {
 
 func (s *GeneralStack) IsEmpty() bool {
 	return s.list.IsEmpty()
+}
+
+type GeneralStackIterator struct {
+	list  list.List
+	index int
+}
+
+func (s *GeneralStackIterator) HasNext() bool {
+	return s.index >= 0
+}
+
+func (s *GeneralStackIterator) Next() general.Element {
+	v, err := s.list.Get(s.index)
+	if err != nil {
+		return nil
+	}
+	s.index--
+	return v
+}
+
+func (s *GeneralStack) Iterator() general.Iterator {
+	return &GeneralStackIterator{index: s.list.Size(), list: s.list}
+}
+
+func (s *GeneralStack) ToSlice() []general.Element {
+	return s.list.ToSlice()
 }

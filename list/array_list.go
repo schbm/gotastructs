@@ -2,7 +2,7 @@ package list
 
 import (
 	"errors"
-	"github.com/schbm/gotastructs"
+	"github.com/schbm/gotastructs/general"
 )
 
 const (
@@ -15,23 +15,23 @@ const (
 ArrayList is a list implementation that uses an array as its underlying data structure.
 */
 type ArrayList struct {
-	elements []gotastructs.Element
+	elements []general.Element
 }
 
 // NewArrayList creates a new ArrayList.
 func NewArrayList() *ArrayList {
 	return &ArrayList{
-		elements: make([]gotastructs.Element, 0, arrLInitSize),
+		elements: make([]general.Element, 0, arrLInitSize),
 	}
 }
 
 func (l *ArrayList) grow() {
-	newElements := make([]gotastructs.Element, len(l.elements), cap(l.elements)*arrLMultiplier)
+	newElements := make([]general.Element, len(l.elements), cap(l.elements)*arrLMultiplier)
 	copy(newElements, l.elements)
 	l.elements = newElements
 }
 
-func (l *ArrayList) Append(element gotastructs.Element) {
+func (l *ArrayList) Append(element general.Element) {
 	if cap(l.elements)-len(l.elements) < arrLGrowthThreshold {
 		l.grow()
 	}
@@ -39,7 +39,7 @@ func (l *ArrayList) Append(element gotastructs.Element) {
 	l.elements = append(l.elements, element)
 }
 
-func (l *ArrayList) Insert(element gotastructs.Element, index int) ListError {
+func (l *ArrayList) Insert(element general.Element, index int) ListError {
 	if index < 0 || index > len(l.elements)-1 {
 		return errors.New("index out of bounds")
 	}
@@ -64,7 +64,7 @@ func (l *ArrayList) Remove(index int) ListError {
 	return nil
 }
 
-func (l *ArrayList) IndexOf(element gotastructs.Element) (int, ListError) {
+func (l *ArrayList) IndexOf(element general.Element) (int, ListError) {
 	for i, v := range l.elements {
 		if v.Equals(element) {
 			return i, nil
@@ -74,7 +74,7 @@ func (l *ArrayList) IndexOf(element gotastructs.Element) (int, ListError) {
 	return -1, errors.New("element not found")
 }
 
-func (l *ArrayList) RemoveElement(element gotastructs.Element) ListError {
+func (l *ArrayList) RemoveElement(element general.Element) ListError {
 	index, err := l.IndexOf(element)
 	if err != nil {
 		return err
@@ -83,7 +83,7 @@ func (l *ArrayList) RemoveElement(element gotastructs.Element) ListError {
 	return l.Remove(index)
 }
 
-func (l *ArrayList) Contains(element gotastructs.Element) bool {
+func (l *ArrayList) Contains(element general.Element) bool {
 	for _, v := range l.elements {
 		if v.Equals(element) {
 			return true
@@ -92,7 +92,7 @@ func (l *ArrayList) Contains(element gotastructs.Element) bool {
 	return false
 }
 
-func (l *ArrayList) Get(index int) (gotastructs.Element, ListError) {
+func (l *ArrayList) Get(index int) (general.Element, ListError) {
 	if index < 0 || index > len(l.elements)-1 {
 		return nil, errors.New("index out of bounds")
 	}
@@ -109,11 +109,11 @@ func (l *ArrayList) Size() int {
 }
 
 type ArrayListIterator struct {
-	list  []gotastructs.Element
+	list  []general.Element
 	index int
 }
 
-func (l *ArrayListIterator) Next() gotastructs.Element {
+func (l *ArrayListIterator) Next() general.Element {
 	if l.index >= len(l.list) {
 		return nil
 	}
@@ -126,13 +126,13 @@ func (l *ArrayListIterator) HasNext() bool {
 	return l.index < len(l.list)
 }
 
-func (l *ArrayList) Iterator() gotastructs.Iterator {
+func (l *ArrayList) Iterator() general.Iterator {
 	return &ArrayListIterator{
 		list:  l.elements,
 		index: 0,
 	}
 }
 
-func (l *ArrayList) ToSlice() []gotastructs.Element {
+func (l *ArrayList) ToSlice() []general.Element {
 	return l.elements
 }

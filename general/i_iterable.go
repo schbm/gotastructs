@@ -1,4 +1,4 @@
-package gotastructs
+package general
 
 type Iterator interface {
 	HasNext() bool

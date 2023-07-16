@@ -1,4 +1,4 @@
-package gotastructs
+package general
 
 type Equaler interface {
 	// Equals compares this Comparables to another Comparables.

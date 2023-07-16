@@ -1,4 +1,4 @@
-package gotastructs
+package general
 
 // Stringer is an interface for types that can be converted to a string.
 type Stringer interface {

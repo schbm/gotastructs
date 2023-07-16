@@ -1,12 +1,15 @@
 package stack
 
-import "github.com/schbm/gotastructs"
+import (
+	"github.com/schbm/gotastructs/general"
+)
 
 type Stack interface {
-	gotastructs.Iterable
-	Push(gotastructs.Element)
-	Pop() (gotastructs.Element, error)
+	general.Iterable
+	general.Slicer
+	Push(general.Element)
+	Pop() (general.Element, error)
 	Size() int
-	Peek() (gotastructs.Element, error)
+	Peek() (general.Element, error)
 	IsEmpty() bool
 }

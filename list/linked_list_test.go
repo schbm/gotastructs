@@ -8,7 +8,7 @@ import (
 
 func TestLinkedList(t *testing.T) {
 	t.Log("Testing LinkedList")
-	var list List = NewLinkedList()
+	var list List = NewLinkedList(false)
 	if list.Size() != 0 {
 		t.Error("list should be empty")
 	}
@@ -17,9 +17,9 @@ func TestLinkedList(t *testing.T) {
 	}
 
 	// test append 3 values
-	list.Append(&element.WrappedInt{1})
-	list.Append(&element.WrappedInt{2})
-	list.Append(&element.WrappedInt{3})
+	list.Append(element.NewInt(1))
+	list.Append(element.NewInt(2))
+	list.Append(element.NewInt(3))
 	if list.Size() != 3 {
 		t.Error("list should have 3 elements")
 	}
@@ -32,7 +32,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&element.WrappedInt{1}) != true {
+	if f.Equals(element.NewInt(1)) != true {
 		t.Error("first element should be 1")
 	}
 
@@ -41,7 +41,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&element.WrappedInt{3}) != true {
+	if l.Equals(element.NewInt(3)) != true {
 		t.Error("last element should be 3")
 	}
 
@@ -52,7 +52,7 @@ func TestLinkedList(t *testing.T) {
 	}
 
 	//inser first
-	err = list.Insert(&element.WrappedInt{0}, 0)
+	err = list.Insert(element.NewInt(0), 0)
 	if err != nil {
 		t.Error(err)
 	}
@@ -63,11 +63,11 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&element.WrappedInt{0}) != true {
+	if f.Equals(element.NewInt(0)) != true {
 		t.Error("first element should be 0")
 	}
 	// insert last
-	err = list.Insert(&element.WrappedInt{4}, list.Size()-1)
+	err = list.Insert(element.NewInt(4), list.Size()-1)
 	if err != nil {
 		t.Error(err)
 	}
@@ -78,11 +78,11 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&element.WrappedInt{4}) != true {
+	if l.Equals(element.NewInt(4)) != true {
 		t.Error("last element should be 4")
 	}
 	// insert out of bounds
-	err = list.Insert(&element.WrappedInt{5}, list.Size())
+	err = list.Insert(element.NewInt(5), list.Size())
 	if err == nil {
 		t.Error("should have returned error")
 	}
@@ -99,7 +99,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&element.WrappedInt{1}) != true {
+	if f.Equals(element.NewInt(1)) != true {
 		t.Error("first element should be 1")
 	}
 
@@ -115,7 +115,7 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&element.WrappedInt{3}) != true {
+	if l.Equals(element.NewInt(3)) != true {
 		t.Error("last element should be 3")
 	}
 
@@ -126,7 +126,7 @@ func TestLinkedList(t *testing.T) {
 	}
 
 	// test remove element
-	err = list.RemoveElement(&element.WrappedInt{2})
+	err = list.RemoveElement(element.NewInt(2))
 	if err != nil {
 		t.Error(err)
 	}
@@ -137,33 +137,33 @@ func TestLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.Equals(&element.WrappedInt{1}) != true {
+	if f.Equals(element.NewInt(1)) != true {
 		t.Error("first element should be 1")
 	}
 	l, err = list.Get(list.Size() - 1)
 	if err != nil {
 		t.Error(err)
 	}
-	if l.Equals(&element.WrappedInt{3}) != true {
+	if l.Equals(element.NewInt(3)) != true {
 		t.Error("last element should be 3")
 	}
 
 	// test remove element not in list
-	err = list.RemoveElement(&element.WrappedInt{2})
+	err = list.RemoveElement(element.NewInt(2))
 	if err == nil {
 		t.Error("should have returned error")
 	}
 
 	// test remove element from empty list
-	list = NewLinkedList()
-	err = list.RemoveElement(&element.WrappedInt{2})
+	list = NewLinkedList(false)
+	err = list.RemoveElement(element.NewInt(2))
 	if err == nil {
 		t.Error("should have returned error")
 	}
 
 	// insert with index on empty list
-	list = NewLinkedList()
-	err = list.Insert(&element.WrappedInt{2}, 0)
+	list = NewLinkedList(false)
+	err = list.Insert(element.NewInt(2), 0)
 	if err == nil {
 		t.Error("should have returned error")
 	}
@@ -173,9 +173,9 @@ func TestLinkedList(t *testing.T) {
 func TestLinkedListTime(t *testing.T) {
 	t.Log("Testing LinkedList Time")
 	currT := time.Now()
-	var list List = NewLinkedList()
+	var list List = NewLinkedList(false)
 	for i := 0; i < 10000000; i++ {
-		list.Append(&element.WrappedInt{i})
+		list.Append(element.NewInt(i))
 	}
 	t.Log("appended 10000000 elements in: ", time.Since(currT))
 
@@ -191,17 +191,17 @@ func TestLinkedListTime(t *testing.T) {
 
 	//insert first
 	currT = time.Now()
-	list.Insert(&element.WrappedInt{1}, 0)
+	list.Insert(element.NewInt(1), 0)
 	t.Log("LinkedList Insert first element: ", time.Since(currT))
 
 	//insert last
 	currT = time.Now()
-	list.Insert(&element.WrappedInt{1}, list.Size()-1)
+	list.Insert(element.NewInt(1), list.Size()-1)
 	t.Log("LinkedList Insert last element: ", time.Since(currT))
 
 	//insert middle
 	currT = time.Now()
-	list.Insert(&element.WrappedInt{1}, list.Size()/2)
+	list.Insert(element.NewInt(1), list.Size()/2)
 	t.Log("LinkedList Insert middle element: ", time.Since(currT))
 
 	//remove first

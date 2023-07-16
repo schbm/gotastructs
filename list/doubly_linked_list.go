@@ -2,16 +2,17 @@ package list
 
 import (
 	"errors"
-	"github.com/schbm/gotastructs"
+	"github.com/schbm/gotastructs/general"
 )
 
+// DoublyLinkedListElement is a node with pointers to the next and previous elements
 type DoublyLinkedListElement struct {
-	value    gotastructs.Element
+	value    general.Element
 	next     *DoublyLinkedListElement
 	previous *DoublyLinkedListElement
 }
 
-func (e *DoublyLinkedListElement) Value() gotastructs.Element {
+func (e *DoublyLinkedListElement) Value() general.Element {
 	return e.value
 }
 
@@ -23,9 +24,10 @@ func (e *DoublyLinkedListElement) Previous() *DoublyLinkedListElement {
 	return e.previous
 }
 
+// DoublyLinkedList is a list of DoublyLinkedListElements
 type DoublyLinkedList struct {
-	head *DoublyLinkedListElement
-	tail *DoublyLinkedListElement
+	head *DoublyLinkedListElement // first element
+	tail *DoublyLinkedListElement // last element
 	size int
 }
 
@@ -33,7 +35,7 @@ func NewDoublyLinkedList() *DoublyLinkedList {
 	return &DoublyLinkedList{nil, nil, 0}
 }
 
-func (l *DoublyLinkedList) Append(value gotastructs.Element) {
+func (l *DoublyLinkedList) Append(value general.Element) {
 	if l.IsEmpty() {
 		l.head = &DoublyLinkedListElement{value, nil, nil}
 		l.tail = l.Head()
@@ -47,7 +49,7 @@ func (l *DoublyLinkedList) Append(value gotastructs.Element) {
 	return
 }
 
-func (l *DoublyLinkedList) Insert(value gotastructs.Element, index int) ListError {
+func (l *DoublyLinkedList) Insert(value general.Element, index int) ListError {
 	if index < 0 || index >= l.Size() {
 		return errors.New("index out of bounds")
 	}
@@ -103,7 +105,7 @@ func (l *DoublyLinkedList) Remove(index int) ListError {
 	return nil
 }
 
-func (l *DoublyLinkedList) RemoveElement(value gotastructs.Element) ListError {
+func (l *DoublyLinkedList) RemoveElement(value general.Element) ListError {
 	if l.IsEmpty() {
 		return errors.New("list is empty")
 	}
@@ -139,7 +141,7 @@ func (l *DoublyLinkedList) RemoveElement(value gotastructs.Element) ListError {
 	return nil
 }
 
-func (l *DoublyLinkedList) IndexOf(value gotastructs.Element) (int, ListError) {
+func (l *DoublyLinkedList) IndexOf(value general.Element) (int, ListError) {
 	if l.IsEmpty() {
 		return -1, errors.New("list is empty")
 	}
@@ -154,7 +156,7 @@ func (l *DoublyLinkedList) IndexOf(value gotastructs.Element) (int, ListError) {
 	return -1, errors.New("element not found")
 }
 
-func (l *DoublyLinkedList) Contains(value gotastructs.Element) bool {
+func (l *DoublyLinkedList) Contains(value general.Element) bool {
 	if l.IsEmpty() {
 		return false
 	}
@@ -169,7 +171,7 @@ func (l *DoublyLinkedList) Contains(value gotastructs.Element) bool {
 	return false
 }
 
-func (l *DoublyLinkedList) Get(index int) (gotastructs.Element, ListError) {
+func (l *DoublyLinkedList) Get(index int) (general.Element, ListError) {
 	if index < 0 || index >= l.Size() {
 		return nil, errors.New("index out of bounds")
 	}
@@ -223,4 +225,35 @@ func (l *DoublyLinkedList) iterateUntil(n int) *DoublyLinkedListElement {
 		current = current.Next()
 	}
 	return current
+}
+
+type DoublyLinkedListIterator struct {
+	current *DoublyLinkedListElement
+}
+
+func (i *DoublyLinkedListIterator) HasNext() bool {
+	return i.current != nil
+}
+
+func (i *DoublyLinkedListIterator) Next() general.Element {
+	if !i.HasNext() {
+		return nil
+	}
+	value := i.current.Value()
+	i.current = i.current.Next()
+	return value
+}
+
+func (l *DoublyLinkedList) Iterator() general.Iterator {
+	return &DoublyLinkedListIterator{l.Head()}
+}
+
+func (l *DoublyLinkedList) ToSlice() []general.Element {
+	slice := make([]general.Element, l.Size())
+	current := l.Head()
+	for i := 0; i < l.Size(); i++ {
+		slice[i] = current.Value()
+		current = current.Next()
+	}
+	return slice
 }

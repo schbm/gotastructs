@@ -1,13 +1,13 @@
-package gotastructs
+package list
 
 import (
 	"github.com/schbm/gotastructs/element"
-	list2 "github.com/schbm/gotastructs/list"
+	"github.com/schbm/gotastructs/general"
 	"testing"
 )
 
 func TestFilterList(t *testing.T) {
-	list := list2.NewArrayList()
+	list := NewArrayList()
 	list.Append(element.NewInt(1))
 	list.Append(element.NewInt(2))
 	list.Append(element.NewInt(3))
@@ -18,12 +18,12 @@ func TestFilterList(t *testing.T) {
 	list.Append(element.NewInt(8))
 	list.Append(element.NewInt(9))
 	list.Append(element.NewInt(10))
-	FilterList(func(el Element) bool {
+	FilterList(func(el general.Element) bool {
 		v, ok := el.(*element.WrappedInt)
 		if !ok {
 			return true
 		}
-		if v.value%2 == 0 {
+		if v.Value()%2 == 0 {
 			return true
 		}
 
@@ -34,6 +34,6 @@ func TestFilterList(t *testing.T) {
 	}
 	iter := list.Iterator()
 	for iter.HasNext() {
-		t.Log(iter.Next().(*element.WrappedInt).value)
+		t.Log(iter.Next().(*element.WrappedInt).String())
 	}
 }

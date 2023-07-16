@@ -8,6 +8,10 @@ type WrappedInt struct {
 	value int
 }
 
+func (w *WrappedInt) Value() int {
+	return w.value
+}
+
 // implements IComparator
 func (w *WrappedInt) Equals(other any) bool {
 	v, ok := other.(*WrappedInt)

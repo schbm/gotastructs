@@ -1,12 +1,14 @@
 package queue
 
-import "github.com/schbm/gotastructs"
+import (
+	"github.com/schbm/gotastructs/general"
+)
 
 type Queue interface {
-	gotastructs.Iterable
-	Append(gotastructs.Element)
-	Remove() gotastructs.Element
-	Peek() gotastructs.Element
+	general.Iterable
+	Append(general.Element)
+	Remove() general.Element
+	Peek() general.Element
 	Size() int
 	IsEmpty() bool
 }

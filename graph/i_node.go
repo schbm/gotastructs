@@ -1,10 +1,12 @@
 package graph
 
-import "github.com/schbm/gotastructs"
+import (
+	"github.com/schbm/gotastructs/general"
+)
 
 type Node interface {
 	Id() string
-	Value() gotastructs.Element
+	Value() general.Element
 	Neighbors() []Node
 	NeighborCount() int
 }

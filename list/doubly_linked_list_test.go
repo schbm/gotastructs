@@ -2,6 +2,7 @@ package list
 
 import (
 	"github.com/schbm/gotastructs/element"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -18,7 +19,7 @@ func TestWrappedString(t *testing.T) {
 		t.Error("should not be equal")
 	}
 	t.Log(ws3)
-	list := NewLinkedList()
+	list := NewDoublyLinkedList()
 	list.Append(&ws1)
 	list.Append(&ws2)
 	list.Append(&ws3)
@@ -50,9 +51,9 @@ func TestDoublyLinkedList(t *testing.T) {
 	}
 
 	// test append 3 values
-	list.Append(&element.WrappedInt{1})
-	list.Append(&element.WrappedInt{2})
-	list.Append(&element.WrappedInt{3})
+	list.Append(element.NewInt(1))
+	list.Append(element.NewInt(2))
+	list.Append(element.NewInt(3))
 	if list.Size() != 3 {
 		t.Error("list should have 3 elements")
 	}
@@ -65,7 +66,7 @@ func TestDoublyLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if !f.Equals(&element.WrappedInt{1}) {
+	if !f.Equals(element.NewInt(1)) {
 		t.Error("first element should be 1")
 	}
 
@@ -74,7 +75,7 @@ func TestDoublyLinkedList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if !m.Equals(&element.WrappedInt{2}) {
+	if !m.Equals(element.NewInt(2)) {
 		t.Error("middle element should be 2")
 	}
 
@@ -84,20 +85,29 @@ func TestDoublyLinkedList(t *testing.T) {
 		t.Error(err)
 	}
 
-	if !l.Equals(&element.WrappedInt{3}) {
+	if !l.Equals(element.NewInt(3)) {
 		t.Error("last element should be 3")
 	}
 
 	// test insert first middle last
-	list.Insert(&element.WrappedInt{0}, 0)
-	list.Insert(&element.WrappedInt{4}, 1)
-	list.Insert(&element.WrappedInt{5}, 2)
+	err = list.Insert(element.NewInt(0), 0)
+	if err != nil {
+		t.Error(err)
+	}
+	err = list.Insert(element.NewInt(4), 1)
+	if err != nil {
+		t.Error(err)
+	}
+	err = list.Insert(element.NewInt(5), 2)
+	if err != nil {
+		t.Error(err)
+	}
 
 	v, err := list.Get(1)
 	if err != nil {
 		t.Error(err)
 	}
-	if !v.Equals(&element.WrappedInt{4}) {
+	if !v.Equals(element.NewInt(4)) {
 		t.Error("middle element should be 4")
 	}
 
@@ -126,7 +136,7 @@ func TestDoublyLinkedList(t *testing.T) {
 	}
 
 	// test out of bound insert
-	err = list.Insert(&element.WrappedInt{0}, 4)
+	err = list.Insert(element.NewInt(0), 4)
 	if err == nil {
 		t.Error("should have gotten an error")
 	}
@@ -138,62 +148,62 @@ func TestDoublyLinkedListTime(t *testing.T) {
 	currT := time.Now()
 	var list List = NewDoublyLinkedList()
 	for i := 0; i < 10000000; i++ {
-		list.Append(&element.WrappedInt{i})
+		list.Append(element.NewInt(i))
 	}
 	t.Log("appended 10000000 elements in", time.Since(currT))
 	//get the last element
 	currT = time.Now()
-	list.Get(list.Size() - 1)
+	_, _ = list.Get(list.Size() - 1)
 	t.Log("DoublyLinkedList Get the last element: ", time.Since(currT))
 
 	//get middle
 	currT = time.Now()
-	list.Get(list.Size() / 2)
+	_, _ = list.Get(list.Size() / 2)
 	t.Log("DoublyLinkedList Get the middle element: ", time.Since(currT))
 
 	//insert first
 	currT = time.Now()
-	list.Insert(&element.WrappedInt{1}, 0)
+	_ = list.Insert(element.NewInt(1), 0)
 	t.Log("DoublyLinkedList Insert first element: ", time.Since(currT))
 
 	//insert last
 	currT = time.Now()
-	list.Insert(&element.WrappedInt{1}, list.Size()-1)
+	_ = list.Insert(element.NewInt(1), list.Size()-1)
 	t.Log("DoublyLinkedList Insert last element: ", time.Since(currT))
 
 	//insert middle
 	currT = time.Now()
-	list.Insert(&element.WrappedInt{1}, list.Size()/2)
+	_ = list.Insert(element.NewInt(1), list.Size()/2)
 	t.Log("DoublyLinkedList Insert middle element: ", time.Since(currT))
 
 	//remove first
 	currT = time.Now()
-	list.Remove(0)
+	_ = list.Remove(0)
 	t.Log("DoublyLinkedList Remove first element: ", time.Since(currT))
 
 	//remove last
 	currT = time.Now()
-	list.Remove(list.Size() - 1)
+	_ = list.Remove(list.Size() - 1)
 	t.Log("DoublyLinkedList Remove last element: ", time.Since(currT))
 
 	//remove middle
 	currT = time.Now()
-	list.Remove(list.Size() / 2)
+	_ = list.Remove(list.Size() / 2)
 	t.Log("DoublyLinkedList Remove middle element: ", time.Since(currT))
 
 	//remove high int value
 	currT = time.Now()
-	list.Remove(list.Size() - 100)
+	_ = list.Remove(list.Size() - 100)
 	t.Log("DoublyLinkedList Remove high int value element: ", time.Since(currT))
 
 	//remove high int value
 	currT = time.Now()
-	list.Remove(list.Size() - 200)
+	_ = list.Remove(list.Size() - 200)
 	t.Log("DoublyLinkedList Remove high int value element: ", time.Since(currT))
 
 	//remove high int value
 	currT = time.Now()
-	list.Remove(list.Size() - 300)
+	_ = list.Remove(list.Size() - 300)
 	t.Log("DoublyLinkedList Remove high int value element: ", time.Since(currT))
 
 	//test iterator
@@ -210,4 +220,36 @@ func TestDoublyLinkedListTime(t *testing.T) {
 	for _, _ = range sl {
 	}
 	t.Log("DoublyLinkedList iteration with slice: ", time.Since(currT))
+}
+func BenchmarkDLLAppendInt(b *testing.B) {
+	list := NewDoublyLinkedList()
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		list.Append(element.NewInt(i))
+	}
+}
+
+func BenchmarkDLLAppendString(b *testing.B) {
+	list := NewDoublyLinkedList()
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		list.Append(element.NewString(strconv.Itoa(i)))
+	}
+}
+
+// BenchmarkInsert-8         130466            125376 ns/op
+func BenchmarkDLLInsert(b *testing.B) {
+	list := NewDoublyLinkedList()
+
+	// Fill the list with some initial elements
+	for i := 0; i < b.N; i++ {
+		list.Append(element.NewInt(i))
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		list.Insert(element.NewInt(i), i%list.Size())
+	}
 }

@@ -1,14 +1,16 @@
 package tree
 
-import "github.com/schbm/gotastructs"
+import (
+	"github.com/schbm/gotastructs/general"
+)
 
 type Tree interface {
-	gotastructs.Element
-	gotastructs.Slicer
+	general.Element
+	general.Slicer
 	//Iterable
 	Parent() Tree
 	IsRoot() bool
-	Value() gotastructs.Element
+	Value() general.Element
 	Children() []Tree
 	AddChild(Tree)
 	RemoveChild(Tree) error

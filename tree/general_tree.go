@@ -1,17 +1,17 @@
 package tree
 
 import (
-	"github.com/schbm/gotastructs"
+	"github.com/schbm/gotastructs/general"
 	"github.com/schbm/gotastructs/list"
 )
 
 type GeneralTree struct {
 	children list.List
 	parent   *GeneralTree
-	value    gotastructs.Element
+	value    general.Element
 }
 
-func NewGeneralTree(list list.List, parent *GeneralTree, value gotastructs.Element) *GeneralTree {
+func NewTree(list list.List, parent *GeneralTree, value general.Element) *GeneralTree {
 	return &GeneralTree{list, parent, value}
 }
 
@@ -19,11 +19,11 @@ func (t *GeneralTree) ChildrenCount() int {
 	return t.children.Size()
 }
 
-func (t *GeneralTree) Value() gotastructs.Element {
+func (t *GeneralTree) Value() general.Element {
 	return t.value
 }
 
-func (t *GeneralTree) Equals(other Comparable) bool {
+func (t *GeneralTree) Equals(other any) bool {
 	v, ok := other.(*GeneralTree)
 	if !ok {
 		return false
@@ -66,7 +66,7 @@ func (t *GeneralTree) RemoveChild(child Tree) error {
 	return nil
 }
 
-func (t *GeneralTree) Compare(other Comparable) int8 {
+func (t *GeneralTree) Compare(other any) int8 {
 	if t.Equals(other) {
 		return 0
 	}
@@ -82,9 +82,9 @@ func (t *GeneralTree) Compare(other Comparable) int8 {
 	return 0
 }
 
-func (t *GeneralTree) ToSlice() []gotastructs.Element {
+func (t *GeneralTree) ToSlice() []general.Element {
 	childs := t.Children()
-	result := make([]gotastructs.Element, 0, t.ChildrenCount()+1)
+	result := make([]general.Element, 0, t.ChildrenCount()+1)
 	result = append(result, t.Value())
 	for _, el := range childs {
 		result = append(result, el.ToSlice()...)

@@ -2,6 +2,7 @@ package list
 
 import (
 	"github.com/schbm/gotastructs/element"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -202,4 +203,36 @@ func TestNormalSlice(t *testing.T) {
 	for _, _ = range list {
 	}
 	t.Log("array iteration with iterator: ", time.Since(currT))
+}
+
+func BenchmarkALAppendInt(b *testing.B) {
+	list := NewArrayList()
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		list.Append(element.NewInt(i))
+	}
+}
+
+func BenchmarkALAppendString(b *testing.B) {
+	list := NewArrayList()
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		list.Append(element.NewString(strconv.Itoa(i)))
+	}
+}
+
+func BenchmarkALInsert(b *testing.B) {
+	list := NewArrayList()
+
+	// Fill the list with some initial elements
+	for i := 0; i < b.N; i++ {
+		list.Append(element.NewInt(i))
+	} //BenchmarkInsert-8         130466            125376 ns/op
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		list.Insert(element.NewInt(i), i%list.Size())
+	}
 }
