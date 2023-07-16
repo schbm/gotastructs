@@ -5,7 +5,7 @@ import (
 	"github.com/schbm/gotastructs/general"
 )
 
-func FilterList(filter func(element general.Element) bool, list List) error {
+func Filter(filter func(element general.Element) bool, list List) error {
 	if list == nil {
 		return errors.New("error list is nil")
 	}
