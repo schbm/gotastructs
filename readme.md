@@ -25,6 +25,7 @@ Currently, the following containers are implemented:
 - Fibonacci Heap (in development)
 - Graph (in development)
 - DirectedGraph (in development)
+- CircularBuffer (in development)
 
 ## Usage
 
