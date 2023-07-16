@@ -114,7 +114,7 @@ type ArrayListIterator struct {
 }
 
 func (l *ArrayListIterator) Next() general.Element {
-	if l.index >= len(l.list) {
+	if l.HasNext() {
 		return nil
 	}
 	el := l.list[l.index]

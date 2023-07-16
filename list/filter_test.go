@@ -18,7 +18,7 @@ func TestFilterList(t *testing.T) {
 	list.Append(element.NewInt(8))
 	list.Append(element.NewInt(9))
 	list.Append(element.NewInt(10))
-	FilterList(func(el general.Element) bool {
+	Filter(func(el general.Element) bool {
 		v, ok := el.(*element.WrappedInt)
 		if !ok {
 			return true
