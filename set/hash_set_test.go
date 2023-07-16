@@ -18,7 +18,7 @@ func TestHashSet(t *testing.T) {
 		t.Log(it.Next().String())
 	}
 
-	if hs.Size() != 3 {
+	if hs.Size() != 3 { //t
 		t.Error("duplicate entries")
 	}
 }

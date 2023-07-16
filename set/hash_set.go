@@ -7,7 +7,7 @@ type HashSet struct {
 }
 
 func NewHashSet() *HashSet {
-	return &HashSet{
+	return &HashSet{ //t
 		data: make(map[general.Element]general.Element),
 	}
 }

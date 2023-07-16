@@ -2,7 +2,7 @@ package set
 
 import "github.com/schbm/gotastructs/general"
 
-type Set interface {
+type Set interface { //t
 	general.Iterable
 	general.Slicer
 	Add(general.Element)
