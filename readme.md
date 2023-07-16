@@ -78,7 +78,7 @@ type Equaler interface {
 
 ### Example Element
 
-As an example we will take a look at a simple int wrapper which implements the `Element` interface.
+As an example we will take a look at a simple string wrapper which implements the `Element` interface.
 ```go
 
 package element
