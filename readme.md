@@ -25,7 +25,7 @@ Currently, the following containers are implemented:
 - DirectedGraph (in development)
 - CircularBuffer (in development)
 
-## Usage
+## Usage in v1
 
 Items or 'elements' of a datastructure have to implement the `type Element interface`.
 Which currently consists of three further interfaces `type Stringer interface`, `type Comparer interface`
