@@ -4,7 +4,11 @@ Gotastructs is a collection of Go datastructures.
 > The stuctures are not thoroughly tested and if you
 wish to use them concurrently additional steps are required.
 
-## Containers
+## V1
+
+Version 1 is deprecated and does not work anymore.
+
+### Containers
 
 Every container implements the Iterable and Slicer interfaces. (in development)
 As the name suggests they are able to return an iterator and a slice of their elements.
@@ -25,7 +29,7 @@ Currently, the following containers are implemented:
 - DirectedGraph (in development)
 - CircularBuffer (in development)
 
-## Usage in v1
+### Usage
 
 Items or 'elements' of a datastructure have to implement the `type Element interface`.
 Which currently consists of three further interfaces `type Stringer interface`, `type Comparer interface`
