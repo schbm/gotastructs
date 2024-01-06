@@ -53,7 +53,6 @@ func (l *LinkedList[V]) Insert(value V) {
 	l.tail.next = &LinkedListNode[V]{value, nil}
 	l.tail = l.tail.Next()
 	l.size++
-	return
 }
 
 func (l *LinkedList[V]) InsertTo(value V, index int) error {

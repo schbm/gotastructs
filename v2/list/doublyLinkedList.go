@@ -49,7 +49,6 @@ func (l *DoublyLinkedList[V]) Insert(value V) {
 	l.Tail().next = &DoublyLinkedListElement[V]{value, nil, l.Tail()}
 	l.tail = l.Tail().Next()
 	l.size++
-	return
 }
 
 func (l *DoublyLinkedList[V]) InsertTo(value V, index int) error {
