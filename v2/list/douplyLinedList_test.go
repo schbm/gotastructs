@@ -2,10 +2,9 @@ package list
 
 import (
 	"testing"
-	"time"
 )
 
-func TestArrayList(t *testing.T) {
+func TestDoublyLinkedList(t *testing.T) {
 	t.Log("Testing ArrayList")
 
 	tests := []struct {
@@ -29,7 +28,7 @@ func TestArrayList(t *testing.T) {
 	for _, test := range tests {
 		data := make([]int, test.size)
 
-		list := NewArrayList[int]()
+		list := NewDoublyLinkedList[int]()
 
 		for i := 0; i < test.size; i++ {
 			data[i] = i
@@ -47,12 +46,5 @@ func TestArrayList(t *testing.T) {
 		if err != nil || val != test.size-1 {
 			t.Errorf("max number cannot be found")
 		}
-	}
-}
-
-func MeasureTime(name string, t *testing.T) func() {
-	start := time.Now()
-	return func() {
-		t.Logf("Time taken by %s is %v\n", name, time.Since(start))
 	}
 }

@@ -2,7 +2,11 @@ package list
 
 import (
 	"errors"
+
+	"github.com/schbm/gotastructs/v2/general"
 )
+
+var _ general.List[int] = &ArrayList[int]{}
 
 const (
 	arrLInitSize        = 100 // initial size of the array
@@ -28,7 +32,7 @@ func (l *ArrayList[V]) grow() {
 	l.elements = newElements
 }
 
-func (l *ArrayList[V]) Append(element V) {
+func (l *ArrayList[V]) Insert(element V) {
 	if cap(l.elements)-len(l.elements) < arrLGrowthThreshold {
 		l.grow()
 	}
@@ -36,7 +40,7 @@ func (l *ArrayList[V]) Append(element V) {
 	l.elements = append(l.elements, element)
 }
 
-func (l *ArrayList[V]) Insert(element V, index int) error {
+func (l *ArrayList[V]) InsertTo(element V, index int) error {
 	if index < 0 || index > len(l.elements)-1 {
 		return errors.New("index out of bounds")
 	}
@@ -51,7 +55,7 @@ func (l *ArrayList[V]) Insert(element V, index int) error {
 	return nil
 }
 
-func (l *ArrayList[V]) Remove(index int) error {
+func (l *ArrayList[V]) RemoveFrom(index int) error {
 	if index < 0 || index > len(l.elements)-1 {
 		return errors.New("index out of bounds")
 	}
@@ -71,13 +75,13 @@ func (l *ArrayList[V]) IndexOf(element V) (int, error) {
 	return -1, errors.New("element not found")
 }
 
-func (l *ArrayList[V]) RemoveElement(element V) error {
+func (l *ArrayList[V]) Remove(element V) error {
 	index, err := l.IndexOf(element)
 	if err != nil {
 		return err
 	}
 
-	return l.Remove(index)
+	return l.RemoveFrom(index)
 }
 
 func (l *ArrayList[V]) Contains(element V) bool {
