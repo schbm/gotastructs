@@ -1,6 +1,6 @@
 module github.com/schbm/gotastructs
 
-go 1.20
+go 1.21.5
 
 require (
 	github.com/fogleman/gg v1.3.0 // indirect
