@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+// TODO better tests
 func TestBST(t *testing.T) {
 	// Create a new Tree instance
 	var tree BinarySearchTree[int, string]
@@ -13,9 +14,14 @@ func TestBST(t *testing.T) {
 	tree.Insert(1, "one")
 	tree.Insert(2, "two")
 	tree.Insert(3, "three")
+	tree.Insert(3, "second three")
+	tree.Insert(4, "four")
+	tree.Insert(5, "five")
+	tree.Insert(6, "six")
+	tree.Insert(7, "seven")
 
 	// Find existing keys
-	value, err := tree.Find(1)
+	value, err := tree.Get(1)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -24,7 +30,7 @@ func TestBST(t *testing.T) {
 	}
 
 	// Find non-existing key
-	_, err = tree.Find(4)
+	_, err = tree.Get(8)
 	if err == nil {
 		t.Errorf("Expected error, got nil")
 	}
@@ -36,8 +42,13 @@ func TestBST(t *testing.T) {
 	}
 
 	// Find removed key
-	_, err = tree.Find(2)
+	_, err = tree.Get(2)
 	if err == nil {
 		t.Errorf("Expected error, got nil")
+	}
+
+	result := make([]string, 0)
+	for _, output := range TreeToInorderSlice[int, string](result, tree.Root) {
+		t.Log(output)
 	}
 }

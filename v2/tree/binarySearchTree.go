@@ -31,7 +31,7 @@ func (bst *BinarySearchTree[K, V]) IsEmpty() bool {
 	return bst.Root == nil
 }
 
-func (bst *BinarySearchTree[K, V]) Find(key K) (V, error) {
+func (bst *BinarySearchTree[K, V]) Get(key K) (V, error) {
 	if bst.IsEmpty() {
 		var v V
 		return v, errors.New("not found")
@@ -57,6 +57,7 @@ func (bst *BinarySearchTree[K, V]) Insert(key K, value V) {
 			Key:   key,
 			Value: value,
 		}
+		return
 	}
 	bst.Root = BinaryTreeInsert[K, V](key, value, bst.Root)
 }
@@ -65,7 +66,7 @@ func (bst *BinarySearchTree[K, V]) Insert(key K, value V) {
 
 // Is a simple recursive implementation of a tree structure. It saves key values in its internal nodes.
 // A node is represented by the current tree whereas its children are also subsequent trees.
-// A tree (node) without children is a node.
+// A tree (node) without children is a leaf.
 // This is a binary tree since it has a maximum of two children.
 type BinaryTree[K constraints.Ordered, V comparable] struct {
 	Key   K
@@ -216,4 +217,24 @@ func ParentInorderChild[K constraints.Ordered, V comparable](tree *BinaryTree[K,
 	}
 
 	return parent, nil
+}
+
+// TreeToInorderSlice traverses the binary search tree in inorder and returns a slice of values.
+// The values are appended to the provided result slice in ascending order.
+// The function takes a binary search tree (tree) and a slice (result) as input.
+// The result slice is returned with the values in inorder traversal order.
+// The keys in the binary search tree must be of type K, which should satisfy the constraints.Ordered interface.
+// The values in the binary search tree must be of type V, which should be comparable.
+func TreeToInorderSlice[K constraints.Ordered, V comparable](result []V, tree *BinaryTree[K, V]) []V {
+	if tree == nil {
+		return result
+	}
+	if tree.Left != nil {
+		result = TreeToInorderSlice(result, tree.Left)
+	}
+	result = append(result, tree.Value)
+	if tree.Right != nil {
+		result = TreeToInorderSlice(result, tree.Right)
+	}
+	return result
 }
