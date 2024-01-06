@@ -4,6 +4,9 @@ Gotastructs is a collection of Go datastructures.
 > The stuctures are not thoroughly tested and if you
 wish to use them concurrently additional steps are required.
 
+## V2
+In the new version i switched from using wrappers to generics.
+
 ## V1
 
 Version 1 is deprecated and does not work anymore.
