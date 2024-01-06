@@ -1,9 +1,10 @@
 package list
 
 import (
-	"github.com/schbm/gotastructs/element"
 	"testing"
 	"time"
+
+	"github.com/schbm/gotastructs/v1/element"
 )
 
 func TestLinkedList(t *testing.T) {

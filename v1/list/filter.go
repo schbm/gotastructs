@@ -2,7 +2,8 @@ package list
 
 import (
 	"errors"
-	"github.com/schbm/gotastructs/general"
+
+	"github.com/schbm/gotastructs/v1/general"
 )
 
 func Filter(filter func(element general.Element) bool, list List) error {

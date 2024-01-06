@@ -1,7 +1,7 @@
 package queue
 
 import (
-	"github.com/schbm/gotastructs/general"
+	"github.com/schbm/gotastructs/v1/general"
 )
 
 type Queue interface {

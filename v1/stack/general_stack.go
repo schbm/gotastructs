@@ -2,8 +2,9 @@ package stack
 
 import (
 	"errors"
-	"github.com/schbm/gotastructs/general"
-	"github.com/schbm/gotastructs/list"
+
+	"github.com/schbm/gotastructs/v1/general"
+	"github.com/schbm/gotastructs/v1/list"
 )
 
 // pushes and pulles last item from list

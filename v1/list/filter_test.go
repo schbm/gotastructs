@@ -1,9 +1,10 @@
 package list
 
 import (
-	"github.com/schbm/gotastructs/element"
-	"github.com/schbm/gotastructs/general"
 	"testing"
+
+	"github.com/schbm/gotastructs/v1/element"
+	"github.com/schbm/gotastructs/v1/general"
 )
 
 func TestFilterList(t *testing.T) {

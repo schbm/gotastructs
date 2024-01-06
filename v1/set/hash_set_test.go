@@ -1,8 +1,9 @@
 package set
 
 import (
-	"github.com/schbm/gotastructs/element"
 	"testing"
+
+	"github.com/schbm/gotastructs/v1/element"
 )
 
 func TestHashSet(t *testing.T) {

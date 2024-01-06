@@ -2,7 +2,8 @@ package list
 
 import (
 	"errors"
-	"github.com/schbm/gotastructs/general"
+
+	"github.com/schbm/gotastructs/v1/general"
 )
 
 const (

@@ -1,10 +1,11 @@
 package list
 
 import (
-	"github.com/schbm/gotastructs/element"
 	"strconv"
 	"testing"
 	"time"
+
+	"github.com/schbm/gotastructs/v1/element"
 )
 
 func TestArrayList(t *testing.T) {

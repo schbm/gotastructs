@@ -1,9 +1,10 @@
 package tree
 
 import (
-	"github.com/schbm/gotastructs/element"
-	"github.com/schbm/gotastructs/list"
 	"testing"
+
+	"github.com/schbm/gotastructs/v1/element"
+	"github.com/schbm/gotastructs/v1/list"
 )
 
 func TestGeneralTree(t *testing.T) {

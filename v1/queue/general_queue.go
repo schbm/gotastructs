@@ -1,8 +1,8 @@
 package queue
 
 import (
-	"github.com/schbm/gotastructs/general"
-	"github.com/schbm/gotastructs/list"
+	"github.com/schbm/gotastructs/v1/general"
+	"github.com/schbm/gotastructs/v1/list"
 )
 
 type GeneralQueue struct {

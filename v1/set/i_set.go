@@ -1,6 +1,6 @@
 package set
 
-import "github.com/schbm/gotastructs/general"
+import "github.com/schbm/gotastructs/v1/general"
 
 type Set interface { //t
 	general.Iterable
