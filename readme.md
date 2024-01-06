@@ -23,7 +23,7 @@ Currently, the following containers are implemented:
 - Hashset
 - GeneralStack
 - GeneralTree
-- BinaryTree (in development
+- BinaryTree (in development)
 - BinarySearchTree (in development)
 - Queue
 - CircularQueue (in development)
