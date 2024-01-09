@@ -174,7 +174,7 @@ func (l *DoublyLinkedList[V]) Contains(value V) bool {
 	return false
 }
 
-func (l *DoublyLinkedList[V]) Get(index int) (V, error) {
+func (l *DoublyLinkedList[V]) Get(element V) (V, error) {
 	if index < 0 || index >= l.Size() {
 		var zeroV V
 		return zeroV, errors.New("index out of bounds")

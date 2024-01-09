@@ -5,20 +5,23 @@ import (
 )
 
 type Map[K constraints.Ordered, V comparable] interface {
-	Get(K) V
+	Get(K) (V, error)
 	Insert(K, V)
-	Remove(K)
+	Remove(K) error
 }
 
 type MultiMap[K constraints.Ordered, V comparable] interface {
 	Map[K, V]
-	FindAll(K) []V
+	GetAll(K) ([]V, error)
+	GetSpecific(K, V) (V, error)
+	RemoveAll(K) error
+	RemoveSpecific(K, V) error
 }
 
 type OrderedMultiMap[K constraints.Ordered, V comparable] interface {
 	MultiMap[K, V]
-	First() V
-	Last() V
-	Successors(K) []V
-	Predecessors(K) []V
+	First() (V, error)
+	Last() (V, error)
+	Successors(K) ([]V, error)
+	Predecessors(K) ([]V, error)
 }

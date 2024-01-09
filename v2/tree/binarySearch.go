@@ -3,11 +3,12 @@ package tree
 import (
 	"errors"
 
+	"github.com/schbm/gotastructs/v2/general"
 	"golang.org/x/exp/constraints"
 )
 
 // Assert interface implementation
-var _ Tree[int, string] = &BinarySearchTree[int, string]{}
+var _ general.Tree[int, string] = &BinarySearchTree[int, string]{}
 
 // Binary Search Tree Implementation
 // Wraps Binary Tree to hide certain implementation details

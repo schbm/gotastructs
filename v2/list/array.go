@@ -94,12 +94,7 @@ func (l *ArrayList[V]) Contains(element V) bool {
 }
 
 func (l *ArrayList[V]) Get(index int) (V, error) {
-	if index < 0 || index > len(l.elements)-1 {
-		var v V
-		return v, errors.New("index out of bounds")
-	}
-
-	return l.elements[index], nil
+	if 
 }
 
 func (l *ArrayList[V]) IsEmpty() bool {

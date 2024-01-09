@@ -2,13 +2,15 @@ package tree
 
 import (
 	"testing"
+
+	"github.com/schbm/gotastructs/v2/general"
 )
 
 // TODO better tests
 func TestBST(t *testing.T) {
 	// Create a new Tree instance
 	var tree BinarySearchTree[int, string]
-	var _ Tree[int, string] = &BinarySearchTree[int, string]{}
+	var _ general.Tree[int, string] = &BinarySearchTree[int, string]{}
 
 	// Insert some key-value pairs
 	tree.Insert(1, "one")
