@@ -94,7 +94,17 @@ func (l *ArrayList[V]) Contains(element V) bool {
 }
 
 func (l *ArrayList[V]) Get(index int) (V, error) {
-	if 
+	if l.IsEmpty() {
+		var zeroV V
+		return zeroV, errors.New("list is empty")
+	}
+	if index < 0 {
+		var zeroV V
+		return zeroV, errors.New("index can not be below zero")
+	}
+	if index-1 > l.Size() {
+
+	}
 }
 
 func (l *ArrayList[V]) IsEmpty() bool {

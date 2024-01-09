@@ -175,21 +175,19 @@ func (l *DoublyLinkedList[V]) Contains(value V) bool {
 }
 
 func (l *DoublyLinkedList[V]) Get(element V) (V, error) {
-	if index < 0 || index >= l.Size() {
+	if l.IsEmpty() {
 		var zeroV V
-		return zeroV, errors.New("index out of bounds")
+		return zeroV, errors.New("list is empty")
 	}
 
-	if index == 0 { // if index is the first element, just return
-		return l.Head().Value(), nil
+	current := l.Head()
+	for i := 0; current != nil; i++ {
+		if current.Value() == element {
+			return i, nil
+		}
+		current = current.Next()
 	}
-
-	if index == l.Size()-1 { // if index is the last element, just return
-		return l.Tail().Value(), nil
-	}
-
-	current := l.iterateUntil(index)
-	return current.Value(), nil
+	return -1, errors.New("element not found")
 }
 
 func (l *DoublyLinkedList[V]) IsEmpty() bool {
