@@ -21,7 +21,8 @@ var _ general.Tree[int, string] = &BinarySearchTree[int, string]{}
 // remove: O(n)
 // In the worst case, old entries have to be moved to make space for a new entry
 type BinarySearchTree[K constraints.Ordered, V comparable] struct {
-	Root *BinaryTree[K, V]
+	Root  *BinaryTree[K, V]
+	Count int
 }
 
 func (bst *BinarySearchTree[K, V]) Clear() {
@@ -49,10 +50,12 @@ func (bst *BinarySearchTree[K, V]) Remove(key K) error {
 		return errors.New("key not found in tree")
 	}
 	bst.Root = tree
+	bst.Count--
 	return nil
 }
 
 func (bst *BinarySearchTree[K, V]) Insert(key K, value V) {
+	defer func() { bst.Count++ }()
 	if bst.IsEmpty() {
 		bst.Root = &BinaryTree[K, V]{
 			Key:   key,
@@ -61,4 +64,8 @@ func (bst *BinarySearchTree[K, V]) Insert(key K, value V) {
 		return
 	}
 	bst.Root = BinaryTreeInsert[K, V](key, value, bst.Root)
+}
+
+func (bst *BinarySearchTree[K, V]) Size() int {
+	return bst.Count
 }

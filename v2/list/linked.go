@@ -41,7 +41,7 @@ func NewLinkedList[V comparable](enableHeuristicApproach bool) *LinkedList[V] {
 	}
 }
 
-// Append adds a new element to the end of the list
+// Insert adds a new element to the end of the list
 func (l *LinkedList[V]) Insert(value V) {
 	if l.IsEmpty() {
 		l.head = &LinkedListNode[V]{value, nil}
@@ -55,6 +55,11 @@ func (l *LinkedList[V]) Insert(value V) {
 	l.size++
 }
 
+// InsertTo inserts a new element with the given value at the specified index in the linked list.
+// If the index is out of bounds, it returns an error.
+// If the index is 0, the new element becomes the new head of the linked list.
+// If the index is the last element, the new element is appended to the end of the linked list.
+// Otherwise, it iterates until the index - 1 and inserts the new element after that position.
 func (l *LinkedList[V]) InsertTo(value V, index int) error {
 	if index < 0 || index >= l.Size() {
 		return errors.New("index out of bounds")
@@ -81,6 +86,11 @@ func (l *LinkedList[V]) InsertTo(value V, index int) error {
 	return nil
 }
 
+// RemoveFrom removes the element at the specified index from the linked list.
+// It returns an error if the index is out of bounds.
+// If the index is the first element, it simply removes the element.
+// If the index is the last element, it updates the tail of the list.
+// Otherwise, it iterates until the element before the specified index and removes the next element.
 func (l *LinkedList[V]) RemoveFrom(index int) error {
 	if index < 0 || index >= l.Size() {
 		return errors.New("index out of bounds")
@@ -216,7 +226,24 @@ func (l *LinkedList[V]) IndexOf(value V) (int, error) {
 	return -1, errors.New("element not found")
 }
 
-func (l *LinkedList[V]) Get(index int) (V, error) {
+func (l *LinkedList[V]) Get(val V) (V, error) {
+	if l.IsEmpty() {
+		var zeroV V
+		return zeroV, errors.New("list is empty")
+	}
+
+	current := l.Head()
+	for i := 0; current != nil; i++ {
+		if current.Value() == val {
+			return current.Value(), nil
+		}
+		current = current.Next()
+	}
+	var zeroV V
+	return zeroV, errors.New("element not found")
+}
+
+func (l *LinkedList[V]) GetFrom(index int) (V, error) {
 	if index < 0 || index >= l.Size() {
 		var zeroV V
 		return zeroV, errors.New("index out of bounds")
