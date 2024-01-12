@@ -86,6 +86,31 @@ func (l *LinkedList[V]) InsertTo(value V, index int) error {
 	return nil
 }
 
+func (l *LinkedList[V]) InsertLast(value V) {
+	l.Insert(value)
+}
+
+func (l *LinkedList[V]) InterstFirst(value V) {
+	l.head = &LinkedListNode[V]{value, l.Head()}
+	l.size++
+}
+
+func (l *LinkedList[V]) GetLast() (V, error) {
+	if l.IsEmpty() {
+		var zeroV V
+		return zeroV, errors.New("list is empty")
+	}
+	return l.tail.value, nil
+}
+
+func (l *LinkedList[V]) GetFirst() (V, error) {
+	if l.IsEmpty() {
+		var zeroV V
+		return zeroV, errors.New("list is empty")
+	}
+	return l.head.value, nil
+}
+
 // RemoveFrom removes the element at the specified index from the linked list.
 // It returns an error if the index is out of bounds.
 // If the index is the first element, it simply removes the element.
