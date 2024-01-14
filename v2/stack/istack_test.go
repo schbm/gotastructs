@@ -27,7 +27,7 @@ func TestStack(t *testing.T) {
 			test.List.Push(char)
 		}
 		result := ""
-		for test.List.Size() != 0 {
+		for test.List.Size() >= 1 {
 			char, err := test.List.Pop()
 			if err != nil {
 				t.Error(err)

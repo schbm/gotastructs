@@ -148,7 +148,7 @@ func ParentInorderChild[K constraints.Ordered, V comparable](tree *BinaryTree[K,
 		return nil, errors.New("tree has no right child")
 	}
 
-	if tree.Right.Left != nil {
+	if tree.Right.Left == nil {
 		return nil, errors.New("right child has no children")
 	}
 
@@ -181,4 +181,18 @@ func TreeToInorderSlice[K constraints.Ordered, V comparable](result []V, tree *B
 		result = TreeToInorderSlice(result, tree.Right)
 	}
 	return result
+}
+
+func BinaryTreeHeight[K constraints.Ordered, V comparable](tree *BinaryTree[K, V]) int {
+	if tree == nil {
+		return 0
+	}
+
+	leftHeight := BinaryTreeHeight(tree.Left)
+	rightHeight := BinaryTreeHeight(tree.Right)
+
+	if leftHeight > rightHeight {
+		return leftHeight + 1
+	}
+	return rightHeight + 1
 }

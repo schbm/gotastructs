@@ -8,7 +8,7 @@ import (
 )
 
 // Assert interface implementation
-var _ general.Tree[int, string] = &BinarySearchTree[int, string]{}
+var _ general.SearchTree[int, string] = &BinarySearchTree[int, string]{}
 
 // Binary Search Tree Implementation
 // Wraps Binary Tree to hide certain implementation details
@@ -68,4 +68,13 @@ func (bst *BinarySearchTree[K, V]) Insert(key K, value V) {
 
 func (bst *BinarySearchTree[K, V]) Size() int {
 	return bst.Count
+}
+
+func (bst *BinarySearchTree[K, V]) Height() int {
+	return BinaryTreeHeight[K, V](bst.Root)
+}
+
+func (bst *BinarySearchTree[K, V]) Inorder() []V {
+	var result []V = make([]V, 0)
+	return TreeToInorderSlice[K, V](result, bst.Root)
 }

@@ -37,7 +37,7 @@ func (l *LinkedListStack[V]) Pop() (V, error) {
 }
 
 func (l *LinkedListStack[V]) Size() int {
-	return l.Size()
+	return l.List.Size()
 }
 
 func (l *LinkedListStack[V]) Top() (V, error) {
