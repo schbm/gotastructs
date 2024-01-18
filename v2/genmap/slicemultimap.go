@@ -20,14 +20,11 @@ type SliceMultiMap[K comparable, V comparable] struct {
 	Count int
 }
 
-/*
-Get(K) V
-Insert(K, V)
-Remove(K)
-GetAll(K) []V
-*/
+// Get retrieves the value associated with the specified key from the SliceMultiMap.
+// If the key is not found, it returns an error.
+// The time complexity of this operation is O(golang map lookup)+O(1).
 func (multiMap *SliceMultiMap[K, V]) Get(key K) (V, error) {
-
+	// map look up O(golang map)
 	values, found := multiMap.M[key]
 	if !found {
 		var zeroV V
@@ -38,29 +35,28 @@ func (multiMap *SliceMultiMap[K, V]) Get(key K) (V, error) {
 		var zeroV V
 		return zeroV, errors.New("not found")
 	}
-
+	// O(1)
 	return values[0], nil
 }
 
 // GetAll returns all the values associated with the given key in the SliceMultiMap.
 // If the key is not found, it returns an empty slice and an error.
 // If the key is found but has no associated values, it returns an empty slice and an error.
-// The function returns the slice (address) of the data
+// The function returns the address of the slice, so any changes made to the slice will be reflected in the SliceMultiMap.
 func (multiMap *SliceMultiMap[K, V]) GetAll(key K) ([]V, error) {
 	if len(multiMap.M) < 1 {
 		return nil, errors.New("map is empty")
 	}
-
+	// map look up O(golang map)
 	values, found := multiMap.M[key]
 	if !found {
 		return nil, errors.New("not found")
 	}
 	if len(values) < 1 {
+		// TODO remove this
 		return nil, errors.New("not found")
 	}
-	result := make([]V, len(values))
-	copy(result, values)
-	return result, nil
+	return values, nil
 }
 
 func (multiMap *SliceMultiMap[K, V]) Insert(key K, value V) {
@@ -90,8 +86,9 @@ func (multiMap *SliceMultiMap[K, V]) GetSpecific(key K, value V) (V, error) {
 		return zeroV, err
 	}
 	for _, v := range values {
-		if v == value {
-			return v, nil
+		var copy V = v
+		if copy == value {
+			return copy, nil
 		}
 	}
 	var zeroV V
@@ -113,8 +110,8 @@ func (multiMap *SliceMultiMap[K, V]) RemoveSpecific(key K, value V) error {
 				}
 				return nil
 			}
-			return errors.New("value does not match")
 		}
+		return errors.New("value does not match")
 	}
 	//otherwhise iterate
 	for i, v := range values {
