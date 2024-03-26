@@ -1,5 +1,6 @@
 # gotastructs
 reference / training / doodle project
+
 Gotastructs is a collection of Go datastructures.
 > The stuctures are not thoroughly tested and if you
 wish to use them concurrently additional steps are required.
